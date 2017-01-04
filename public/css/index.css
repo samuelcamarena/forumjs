@@ -1,0 +1,247 @@
+* {
+    margin :0;
+    padding :0;
+}
+
+/* Header and footer styles */
+.large-font {
+    font-size: 56px;
+}
+
+.cls-title {
+    font-size: 2em;
+    line-height: 50px;
+}
+
+div#header, div#footer {
+    position: absolute;
+    right: 10px;
+    left: 10px;    
+    margin: 0px;
+    padding: 10px;
+    height: 50px;
+    border: 3px solid #999;
+    background-color: #607D8B;
+    color: white;
+    font-weight: bold;
+}
+
+div#footer {
+    bottom: 10px;
+    font-size: 16px;
+    height:80px;
+}
+
+div#header {    
+    top: 10px;
+    height: 50px;
+}
+
+/* Header content */
+div#header-right {
+    display:inline-block;
+    left:10px; 
+    width:auto; 
+    float:right;
+}
+
+table#tbl-user {
+    display:inline-table; 
+    visibility:visible;
+    margin-right: 10px;
+} 
+
+div#div-current-user {
+    top:10px;
+    position:absolute;
+    visibility: hidden;
+}
+
+span#txt-user {
+    font-weight:bold; 
+    color:white;
+}
+
+div#div-login-error {
+    background:red; 
+    font-size:15px; 
+    height:35px; 
+    position:relative; 
+    z-index:1; 
+    border: 2px solid #000; 
+    color:white; 
+    visibility: hidden;
+}
+
+p#txt-login-error {
+    padding: 10px 0 0 5px;
+}
+
+label#lab-newsubject {
+    font-size: 14px;
+}
+/* Footer content : form style and generic buttons */
+form#frm-message textarea { 
+    border: 2px solid #000;
+    width:calc(100% - 93px); 
+    padding: 10px; 
+    height:30px; 
+    resize:none;
+    font-size: 14px;
+}
+
+button.cls-btn { 
+    cursor: pointer;
+    border-radius: 5px;
+    font-size:12px;
+    color: #222;
+    font-weight: bold;
+    border: 2px solid #000;
+    float:right; 
+    background: #E5FA00;
+    padding: 0; 
+    width: 60px; 
+    height:24px; 
+    margin:2px 0px 0px 0px;
+    display:inline;
+}
+
+button#btn-message, button#btn-login {  
+    height:50px;
+    padding: 6px; 
+    margin:0;
+} 
+
+/* Three columns layout */
+div#left, div#right, div#center {
+    position: absolute;
+    top: 86px;
+    bottom: 92px;
+    margin-bottom: 10px;
+    padding: 0px 10px 10px 10px;
+}
+
+div#left, div#right {
+    width: 180px;
+    background-color: #EEE;
+    border-right: 3px solid #999;
+    border-left: 3px solid #999;
+}
+
+div#left {
+    left: 10px;
+}
+
+div#right {
+    right: 10px;
+}
+
+div#center {
+    right: 225px;
+    left: 225px;
+}
+
+/* Column content */
+.cls-column-title {
+    font-size: 18px;    
+    font-weight: bold;
+    color: white;
+    line-height: 28px;
+}
+
+.cls-column-header {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #607D8B;
+    padding-left: 10px;    
+}
+
+.cls-column-content {
+    padding-left:0px;
+    height: calc( 100% - 80px ) ;
+    overflow-x: auto;
+    overflow-y: visible;
+}
+
+/* Lists inside columns */
+.cls-li-mouseover {
+    color:red;
+    cursor: pointer;
+}
+
+.cls-li-current {
+    background-color: #DBAE1A;
+}
+
+.cls-li-msg-header, .cls-li-msg-content {
+    font-size: 16px;    
+}
+
+span#li-msg-who-content, span#li-msg-date-content {
+    display: block;
+}
+
+span#li-msg-who-txt, span#li-msg-date-txt {
+    font-weight: bold;
+}
+
+hr.msg-separator {
+    margin-bottom:3px;
+}
+
+#ml, #ul, #sl {
+    list-style-type:none;
+}
+
+#ml li, #ul li, #sl li {
+    padding: 0px 10px 5px 10px; 
+}
+
+#ul li, #sl li {
+}
+
+li:nth-child(odd) { 
+    background: #eee; 
+}
+
+li:nth-child(even) { 
+    background: #fff; 
+}
+
+/* Popup dialog styles and jQuery ccs specific restyling for Popup dialogs */
+.ui-dialog {
+    font-size: 75%;
+}
+
+.ui-dialog-titlebar {
+    background: #607D8B;
+}
+
+.ui-dialog-title {
+    font-size: 14px;
+}
+
+.ui-widget-header {
+    border: 1px solid #607D8B;
+}
+
+div.cls-popup fieldset { 
+    padding:10px; 
+    border:0; 
+    margin-top:10px; 
+}
+
+div.cls-pupop label, div.clspopup input { 
+    display:block; 
+}
+
+div.cls-popup input.text { 
+    margin-bottom:10px; 
+    width:95%; 
+    padding: .4em; 
+}
+
+div#div-err-popup {
+    visibility: hidden;
+    color:red;
+}

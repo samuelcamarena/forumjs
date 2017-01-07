@@ -45,17 +45,18 @@ In order to usage forumjs, you first need to start up the data server:
 `  node` [dmanager-server.js](https://github.com/samuelcamarena/forumjs/blob/master/dmanager-server.js)  
 
 This starts the server at default connection parameters listenning at *Localhost:9000*.  
-It also accepts connection paramaters 'host:port'.  
+It also accepts connection paramaters host:port.  
 
-`  node` [dmanager-server.js](https://github.com/samuelcamarena/forumjs/blob/master/dmanager-server.js)  '127.0.0.1:5500'
+`  node` [dmanager-server.js](https://github.com/samuelcamarena/forumjs/blob/master/dmanager-server.js)  127.0.0.1:5500
 
 Next start up the web server:  
 
 `  node` [forum-webserver.js](https://github.com/samuelcamarena/forumjs/blob/master/forum-webserver.js)  
 
-This starts the web server with a set of two default connection parameters:  
- - First parameter *Localhost:10000* for client browser requests  
- - Second parameter *Localhost:9000* to stablish connection with data server, this must match data server's host/port  
-It also accepts connection parameters 'host:port'.
+This starts the http web server with a set of two default connection parameters:  
+ - First parameter *Localhost:9000* to stablish connection with data server, this must match data server's host/port  
+ - Second parameter *Localhost:10000* for client browser requests  
 
-`  node` [forum-webserver.js](https://github.com/samuelcamarena/forumjs/blob/master/forum-webserver.js)  '127.0.0.1:1100' '127.0.0.1:5500'
+It also accepts 1 or 2 connection parameters: input *1 argument* to data server *host:port* or *2 arguments* to data server *host:port* and http *port*.
+
+`  node` [forum-webserver.js](https://github.com/samuelcamarena/forumjs/blob/master/forum-webserver.js)  127.0.0.1:1100 5500

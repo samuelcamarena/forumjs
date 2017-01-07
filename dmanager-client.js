@@ -31,43 +31,6 @@ client.on('data', function(data) {
         console.log(' --- (', msg, ') ', messages[msg]);
 		handleData(messages[msg]);
 	}
-
-	/*
-	console.log('DMC:\n - Reply from data manager server');
-	var str = data.toString();
-	console.log(' --- str: ', str);
-
-	var reply = JSON.parse(str);
-	
-	console.log(' --- reply: ' + JSON.stringify(reply) + '\n');
-	
-	switch (reply.what) {
-		// TODO complete list of commands
-		case 'get private message list':
-		case 'get public message list':
-		case 'get subject list':
-		case 'get user list':
-			callbacks [reply.invoId] (reply.obj); // call the stored callback, one argument
-			delete callbacks [reply.invoId]; // remove from hash
-			break;
-		case 'add private message':
-		case 'add public message':
-			//console.log ('\nDm Remote, We received a reply for add command\n');
-			callbacks [reply.invoId] (); // call the stored callback, no arguments
-			delete callbacks [reply.invoId]; // remove from hash
-			break;
-
-		case 'add user':
-		case 'add subject':
-		case 'login':
-			callbacks [reply.invoId] (reply.obj); // call the stored callback.
-			delete callbacks [reply.invoId]; // remove from hash
-			break;
-				
-		default:
-			console.log ('DMC:\n - Wrong reply option received from data server\n --- ', reply.what);
-	}
-	*/
 });
 // Add a 'close' event handler for the client socket
 client.on('close', function() {
@@ -93,13 +56,9 @@ function writeData(socket, data) {
 	// Socket TCP sends all data in stream way, therefore we use [>EOM<] as End Of Message token separator
 	str = str + '[>EOM<]';
 	var success = socket.write(str);
-	//console.log('DMC:\n - Data = ', data, '\n --- success = ', success);
 	if (!success) {
-		//console.log('DMC:\n - Inside NO success');
 		(function(socket, data) {
-			//console.log('DMC:\n - Inside NO success\n --- Function (data) ', data);
 			socket.once('drain', function() {
-				//console.log('DMC:\n - Inside NO success\n --- \n --- --- Drain');
 				writeData(socket, data);
 			});
 		})(socket, data);
@@ -108,7 +67,7 @@ function writeData(socket, data) {
 
 function handleData(data) {
 	var reply = JSON.parse(data);			
-	//console.log(' --- reply: ' + JSON.stringify(reply) + '\n');
+	
 	switch (reply.what) {
 		// Invocations with one argument callbacks.
 		case 'get private message list':

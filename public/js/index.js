@@ -30,17 +30,7 @@ function MessageArea(toId, toStr, isPrivate) {
 /*
  * Incomming asynchronous messages from server
  */
-// On message (private or public) from server, append it to message area.
-socket.on('message', function(msgStr){
-    var msg = JSON.parse(msgStr);
-    msg.ts = new Date (msg.ts);
-    if (messageArea.isPrivate == msg.isPrivate && 
-        (messageArea.toId == msg.to || messageArea.toId == msg.from)) {
-        dom_push_message(msg);
-    } else {
-        console.log('CLT:\n - Notice: message lost due to asynchrony: ' + msgStr);
-    }
-});
+
 
 // On new subject event: error while creating, ack, or add subject from the server
 socket.on('new subject', function(what, data, strSbj) {
@@ -118,6 +108,18 @@ socket.on('message list', function(from, to, isPrivate, data) {
     }
 });
 
+// On message (private or public) from server, append it to message area.
+socket.on('message', function(msgStr){
+    var msg = JSON.parse(msgStr);
+    msg.ts = new Date (msg.ts);
+    if (messageArea.isPrivate == msg.isPrivate && 
+        (messageArea.toId == msg.to || messageArea.toId == msg.from)) {
+        dom_push_message(msg);
+    } else {
+        console.log('CLT:\n - Notice: message lost due to asynchrony: ' + msgStr);
+    }
+});
+
 /*
  * Functions to update DOM with incomming data
  */
@@ -134,18 +136,22 @@ function dom_push_user(u) {
 
 // Add message to list
 function dom_push_message(msg) {
-    var htmlCode=   "<div class='cls-li-msg-header'>" +
-                        "<span id='li-msg-who-content'>" +
-                            "<span id='li-msg-who'>Author: </span>" +
-                            "<span id='li-msg-who-txt'>" + msg.from + "</span></span>" +
-                        "<span id='li-msg-date-content'>" +
-                            "<span id='li-msg-date'>Posted on: </span>" +
-                            "<span id='li-msg-date-txt'>" + msg.ts.toLocaleString() + "</span></span>" +
-                    "</div>" +
-                    "<hr class='msg-separator'>" +
-                    "<div class='cls-li-msg-content'>" + msg.msg + 
-                    "</div>";
-
+    if (msg.from == 'Wellcome') {
+        var htmlCode = "<div class='cls-li-msg-header'>" + msg.msg + 
+                        "</div>";
+    } else {                      
+        var htmlCode=   "<div class='cls-li-msg-header'>" +
+                            "<span id='li-msg-who-content'>" +
+                                "<span id='li-msg-who'>Author: </span>" +
+                                "<span id='li-msg-who-txt'>" + msg.from + "</span></span>" +
+                            "<span id='li-msg-date-content'>" +
+                                "<span id='li-msg-date'>Posted on: </span>" +
+                                "<span id='li-msg-date-txt'>" + msg.ts.toLocaleString() + "</span></span>" +
+                        "</div>" +
+                        "<hr class='msg-separator'>" +
+                        "<div class='cls-li-msg-content'>" + msg.msg + 
+                        "</div>";
+    }
     $('#ml').append($('<li>').html(htmlCode));
     if (msg.from == userName) {
         $('#sl li').last().find('#li-msg-who-txt').css('background-color', 'green');

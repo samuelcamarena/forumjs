@@ -25,8 +25,6 @@ var server = net.createServer(function(socket) {
 
     socket.on('data', function(data) {
         var str = data.toString();
-        //console.log('DMS:\n - HandleData, request from data manager client\n --- ', str);
-
         // Socket TCP sends all data in stream way to improve the comunications performance,
         // therefore "data" may contain more than one client request. We use [>EOM<] as End Of Message token separator.
         var messages = str.split('[>EOM<]');
@@ -37,57 +35,6 @@ var server = net.createServer(function(socket) {
             console.log(' --- (', msg, ') ', messages[msg]);
             handleData(socket, messages[msg]);
         }
-        /*
-        console.log('DMS:\n - Request done');
-        var str = data.toString();
-        console.log('DMS:\n - data.toString\n --- ', str);
-        var invo = JSON.parse(str);
-        var reply = {what:invo.what, invoId:invo.invoId};
-        console.log('DMS:\n - Invo.what = ', JSON.stringify(invo.what));
-         
-        switch (invo.what) {
-            case 'get subject list': 
-                //console.log('DM-Server: reply dm.getSubjectList');
-                reply.obj = dm.getSubjectList();
-                break;
-
-            case 'get public message list': 
-                reply.obj = dm.getPublicMessageList(invo.sbj);
-                break;
-
-            case 'get private message list': 
-              	reply.obj = dm.getPrivateMessageList(invo.u1, invo.u2);
-              	break;
-
-            case 'get user list': 
-                reply.obj = dm.getUserList();
-                break;
-
-            case 'add user': 
-                reply.obj = dm.addUser(invo.name, invo.pass);
-                break;
-    
-            case 'add subject': 
-                reply.obj = dm.addSubject(invo.sbj);
-                break;            
-
-            case 'login': 
-                reply.obj = dm.login(invo.name, invo.pass);
-                break;            
-
-            case 'add private message': 
-                dm.addPrivateMessage(invo.msg);
-                break;    
-
-            case 'add public message': 
-                dm.addPublicMessage(invo.msg);
-                break;    
-        }
-        console.log('DMS:\n - reply.obj\n --- ' + JSON.stringify(reply));
-        //sock.write(JSON.stringify(reply));
-        writeData(socket, JSON.stringify(reply));
-    });
-    */
     });
 
     socket.on('close', function() {
@@ -105,12 +52,6 @@ var server = net.createServer(function(socket) {
     socket.on('error', function(err) {
         console.log('DMS:\n - Connection error\n --- ', JSON.stringify(err));
     });    
-
-/*
-    socket.on('close', function(data) {
-        console.log('\nData manager server:\n - Connection closed');
-    });
-*/
 });
 
 function writeData(socket, data) {
@@ -128,7 +69,7 @@ function writeData(socket, data) {
 function handleData(socket, data) {
     var invo = JSON.parse(data);
     var reply = {what:invo.what, invoId:invo.invoId};
-    //console.log('DMS:\n - Invo.what = ', JSON.stringify(invo.what));
+    
     switch (invo.what) {
         case 'get subject list': 
             reply.obj = dm.getSubjectList();

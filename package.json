@@ -1,5 +1,5 @@
 {
-  "name": "forumjs-init-v",
+  "name": "forumjs",
   "version": "1.3.0",
   "description": "Practice proyect of distributed systems based on a Javascript forum",
   "engines": {
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/samuelcamarena/forumjs-init-v.git"
+    "url": "https://github.com/samuelcamarena/forumjs.git"
   },
   "keywords": [
     "node",

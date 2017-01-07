@@ -4,18 +4,27 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var dm = require('./dmanager-client.js');
 
+var httpPort = 10000; // Default port value of http web server.
 var hostPort = {port: 9000, host: '127.0.0.1'}; // Default values in case of no command line arguments.
-// Use command line arguments to establish the Host and Port of the remote data manager server.
+// Use command line arguments to establish the host and port of the remote data manager server,
+//  and the port of the http web server.
 switch(process.argv.length){
     case 2:
-        console.log('FWS:\n - No command line arguments, using default host, port'); 
+        console.log('FWS:\n - No command line arguments:\n   using default data server host:port and default web server port'); 
         break;
-    case 3: // Host:Port on commmand line.
+    case 3: // '127.0.0.1:9000' host:port data server on commmand line.
         hostPort.host = (process.argv[2].split(':'))[0];
         hostPort.port = (process.argv[2].split(':'))[1];
         break;
+    case 4: // '127.0.0.1:9000' '80' host:port data server, port web server.
+        hostPort.host = (process.argv[2].split(':'))[0];
+        hostPort.port = (process.argv[2].split(':'))[1];
+        httpPort = process.argv[3];
+        break;
     default:
         console.log('FWS:\n - Error: wrong command line arguments (' + process.argv.length + ')');
+        console.log(' - Usage:\n --- input \'host:port\' data server e.g. 127.0.0.1:9000');
+        console.log(' --- input 2 arguments \'host:port\' data server and port http web server.');
 }
 
 var viewsdir = __dirname + '/views';
@@ -29,7 +38,7 @@ function get_page(req, res) {
 
 // Called on server startup
 function on_startup() {
-    console.log('FWS:\n - Starting server at current directory:\n --- ' + __dirname);
+    console.log('FWS:\n - Starting http web server at port: ' + httpPort + '\n --- at current directory: ' + __dirname + '\n');
     // Start data manager client to establish connection with the remote data manager server at (host:port).
     console.log('FWS:\n - Starting data manager client');
     dm.Start(hostPort.port, hostPort.host);
@@ -143,4 +152,4 @@ io.on('connection', function(sock) {
 });
 
 // Listen for connections.
-http.listen(10000, on_startup);
+http.listen(httpPort, on_startup);
